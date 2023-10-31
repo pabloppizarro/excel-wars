@@ -13,6 +13,10 @@ export default function Hero() {
   const [lastFile, setlastFile] = useState<any>();
   const [savedPreviewData, setSavedPreviewData] = useState<any>([]);
 
+  //Esta es la forma en la que obtenemos y nos suscribimos a el estado de nuestra entidad
+  //en redux, ojo que debemos filtrar por entidad ya que si lo hacemos al state global
+  //cualquier cambio nos va a disparar re-renderizado en todos nuestros componentes.
+
   async function processXlxs(formData: FormData) {
     console.log(formData.get("file"));
     setSavedPreviewData([...savedPreviewData, previewData[0]]);
@@ -140,8 +144,6 @@ export default function Hero() {
                       key={i}
                       value={saved}
                     ></JsonView>
-                    {/* {data.map((e, i) => (
-                ))} */}
                   </pre>
                 ))
               : ""}
