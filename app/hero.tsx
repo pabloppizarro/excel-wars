@@ -3,9 +3,11 @@ import JsonView from "@uiw/react-json-view";
 import { useState } from "react";
 import { read, utils, readFile } from "xlsx";
 
+import { vscodeTheme } from "@uiw/react-json-view/vscode";
 export default function Hero() {
   const [previewData, setPreviewData] = useState<any>();
   const [range, setRange] = useState<number>();
+  const [name, setName] = useState<string>();
   const [headers, setHeaders] = useState<[string]>();
   const [length, setLength] = useState<number>(0);
   const [lastFile, setlastFile] = useState<any>();
@@ -77,6 +79,15 @@ export default function Hero() {
 
             {lastFile ? (
               <div className="grid gap-4">
+                <label htmlFor="name">Name for this collection</label>
+                <input
+                  onChange={($event: any) => {
+                    setName($event.target.value);
+                  }}
+                  name="name"
+                  id="name"
+                  placeholder="candidates-tohire-2023"
+                />
                 <label htmlFor="range">Table headers row n°</label>
                 <input
                   onChange={($event: any) => {
@@ -121,10 +132,11 @@ export default function Hero() {
               ? savedPreviewData.map((saved: any, i: number) => (
                   <pre>
                     <JsonView
+                      className=" rounded-lg"
                       onCopied={($event) => {
                         console.log("copied:", $event);
                       }}
-                      color="black"
+                      style={vscodeTheme}
                       key={i}
                       value={saved}
                     ></JsonView>
